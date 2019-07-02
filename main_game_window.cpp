@@ -74,7 +74,7 @@ void MainGameWindow::initGame(GameLevel level)
             // 有方块就设置图片
             QPixmap iconPix;
             QString fileString;
-            fileString.sprintf(":/res/image/%d.png", game->getGameMap()[i]);
+            fileString.sprintf(":/res/image/%d.jpg", game->getGameMap()[i]);
             iconPix.load(fileString);
             QIcon icon(iconPix);
             imageButton[i]->setIcon(icon);
