@@ -23,3 +23,17 @@ FORMS    += main_game_window.ui
 
 RESOURCES += \
     res.qrc
+
+DISTFILES += \
+    res/image/background/DrawCrowd.jpeg \
+    res/image/background/仙侠1.jpg \
+    res/image/background/仙侠2.jpg \
+    res/image/background/仙侠3.jpg \
+    res/image/background/仙侠4.jpg \
+    res/image/background/仙侠5.jpg \
+    res/image/background/仙侠6.jpg \
+    res/image/background/仙侠7.jpg \
+    res/image/background/仙侠8.jpg \
+    res/image/background/仙侠9.jpg \
+    res/image/background/剑灵1.jpg \
+    res/image/background/仙侠10.png
