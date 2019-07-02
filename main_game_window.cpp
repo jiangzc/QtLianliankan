@@ -9,8 +9,8 @@
 
 // --------- 全局变量 --------- //
 const int kIconSize = 36;
-const int kTopMargin = 70;
-const int kLeftMargin = 50;
+const int kTopMargin = 90;
+const int kLeftMargin = 130;
 
 const QString kIconReleasedStyle = "";
 const QString kIconClickedStyle = "background-color: rgba(255, 255, 12, 161)";
