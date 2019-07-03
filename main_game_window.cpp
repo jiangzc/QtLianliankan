@@ -13,7 +13,7 @@ const int kTopMargin = 90;
 const int kLeftMargin = 130;
 
 const QString kIconReleasedStyle = "";
-const QString kIconClickedStyle = "background-color: rgba(255, 255, 12, 161)";
+const QString kIconClickedStyle = "background-color: rgba(255, 0, 0, 255)";
 const QString kIconHintStyle = "background-color: rgba(255, 0, 0, 255)";
 
 
@@ -78,7 +78,7 @@ void MainGameWindow::initGame(GameLevel level)
             iconPix.load(fileString);
             QIcon icon(iconPix);
             imageButton[i]->setIcon(icon);
-            imageButton[i]->setIconSize(QSize(kIconSize, kIconSize));
+            imageButton[i]->setIconSize(QSize(kIconSize - 8, kIconSize - 8));
 
             // 添加按下的信号槽
             connect(imageButton[i], SIGNAL(pressed()), this, SLOT(onIconButtonPressed()));
