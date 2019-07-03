@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainGameWindow</string>
+   <string>迷之连连看</string>
   </property>
   <property name="styleSheet">
    <string notr="true">background-image: url(:/res/image/background/5.jpg);
@@ -57,7 +57,7 @@
      <string notr="true">background-color: rgba(11, 255, 36, 161);</string>
     </property>
     <property name="text">
-     <string>hints</string>
+     <string>提示</string>
     </property>
    </widget>
    <widget class="QPushButton" name="robot_btn">
@@ -73,7 +73,7 @@
      <string notr="true">background-color: rgba(11, 255, 36, 161);</string>
     </property>
     <property name="text">
-     <string>auto</string>
+     <string>作弊</string>
     </property>
    </widget>
   </widget>

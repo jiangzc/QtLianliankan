@@ -23,7 +23,7 @@
    </size>
   </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>欢迎游戏</string>
   </property>
   <property name="styleSheet">
    <string notr="true"/>
