@@ -14,12 +14,15 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
         main_game_window.cpp \
-    game_model.cpp
+    game_model.cpp \
+    startdialog.cpp
 
 HEADERS  += main_game_window.h \
-    game_model.h
+    game_model.h \
+    startdialog.h
 
-FORMS    += main_game_window.ui
+FORMS    += main_game_window.ui \
+    startdialog.ui
 
 RESOURCES += \
     res.qrc

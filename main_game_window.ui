@@ -88,7 +88,7 @@
    </property>
    <widget class="QMenu" name="menuGame">
     <property name="title">
-     <string>game</string>
+     <string>游戏模式(&amp;M)</string>
     </property>
     <addaction name="actionBasic"/>
     <addaction name="actionMedium"/>
@@ -97,22 +97,36 @@
    <addaction name="menuGame"/>
   </widget>
   <action name="actionBasic">
+   <property name="icon">
+    <iconset resource="res.qrc">
+     <normaloff>:/res/image/19.jpg</normaloff>:/res/image/19.jpg</iconset>
+   </property>
    <property name="text">
     <string>basic</string>
    </property>
   </action>
   <action name="actionMedium">
+   <property name="icon">
+    <iconset resource="res.qrc">
+     <normaloff>:/res/image/4.jpg</normaloff>:/res/image/4.jpg</iconset>
+   </property>
    <property name="text">
     <string>medium</string>
    </property>
   </action>
   <action name="actionHard">
+   <property name="icon">
+    <iconset resource="res.qrc">
+     <normaloff>:/res/image/62.jpg</normaloff>:/res/image/62.jpg</iconset>
+   </property>
    <property name="text">
     <string>hard</string>
    </property>
   </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
- <resources/>
+ <resources>
+  <include location="res.qrc"/>
+ </resources>
  <connections/>
 </ui>
