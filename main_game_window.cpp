@@ -20,7 +20,7 @@ const QString kIconHintStyle = "background-color: rgba(255, 0, 0, 255)";
 const int kGameTimeTotal = 5 * 60 * 1000; // 总时间
 const int kGameTimerInterval = 300;
 const int kLinkTimerDelay = 700;
-// -------------------------- //
+
 
 // 游戏主界面
 MainGameWindow::MainGameWindow(QWidget *parent) :
@@ -51,10 +51,10 @@ MainGameWindow::~MainGameWindow()
     delete ui;
 }
 
+// 游戏初始化
 void MainGameWindow::initGame(GameLevel level)
 {
     // 启动游戏
-
     game = new GameModel;
     game->startGame(level);
 
