@@ -26,17 +26,14 @@ GameModel::~GameModel()
 
 void GameModel::startGame(GameLevel level)
 {
-    // 用C的方式初始化数组
+    // 初始化数组
     gameMap = (int *)malloc(sizeof(int) * MAX_ROW * MAX_COL);
-//    memset(gameMap, 0, MAX_ROW * MAX_COL);
-    // 必须这样赋初值，memset容易出问题
     for (int i = 0; i < MAX_ROW * MAX_COL; i++)
         gameMap[i] = 0;
 
     hintArray = (int *)malloc(sizeof(int) * 4);
-    memset(hintArray, 0, 4);
-//    for (int i = 0; i < 4; i++)
-//        hintArray[i] = -1;
+    for (int i = 0; i < 4; i++)
+        hintArray[i] = -1;
 
     gameStatus = PLAYING;
 
@@ -459,4 +456,15 @@ bool GameModel::linkTwoTiles(int srcX, int srcY, int dstX, int dstY)
     }
 
     return false;
+}
+
+void GameModel::resetMap()
+{
+    // 打乱方块
+    srand((unsigned)time(0));
+    for(int i = 0; i < MAX_ROW * MAX_COL; i++)
+    {
+        int randomID = rand() % (MAX_ROW * MAX_COL);
+        std::swap(gameMap[i], gameMap[randomID]);
+    }
 }

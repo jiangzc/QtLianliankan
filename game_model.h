@@ -54,6 +54,7 @@ public:
     bool isFrozen(); // 判断是否已经成为了僵局
     bool isWin(); // 检查游戏是否结束
     int *getHint(); // 获得提示
+    void resetMap();
     std::vector<PaintPoint> paintPoints; // 用于绘制的点
 
     // 游戏状态和难度

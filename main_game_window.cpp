@@ -162,9 +162,10 @@ void MainGameWindow::onIconButtonPressed()
                 // 延迟后实现连接效果
                 QTimer::singleShot(kLinkTimerDelay, this, SLOT(handleLinkEffect()));
 
-                // 每次检查一下是否僵局
+                // 每次检查一下是否僵局，若成僵局，则自动进行一次重排
                 if (game->isFrozen())
-                    QMessageBox::information(this, "oops", "dead game");
+//                    QMessageBox::information(this, "oops", "dead game");
+                    reset();
 
                 // 检查是否胜利
                 if (game->isWin())
@@ -311,7 +312,7 @@ void MainGameWindow::gameTimerEvent()
     // 进度条计时效果
     if(ui->timeBar->value() == 0) {
         gameTimer->stop();
-        QMessageBox::information(this, "game over", "play again>_<");
+        QMessageBox::information(this, "game oGameModel.ver", "play again>_<");
     } else
         ui->timeBar->setValue(ui->timeBar->value() - kGameTimerInterval);
 }
@@ -457,5 +458,28 @@ void MainGameWindow::restartGame()
 // 重排
 void MainGameWindow::reset()
 {
+    game->resetMap();
 
+    for (int i = 0; i < MAX_ROW *MAX_COL; i++)
+        imageButton[i]->hide();
+
+    for(int i = 0; i < MAX_ROW * MAX_COL; i++) {
+        // 设置索引
+        imageButton[i]->xID = i % MAX_COL;
+        imageButton[i]->yID = i / MAX_COL;
+
+        if (game->getGameMap()[i]) {
+            // 有方块就设置图片
+            QPixmap iconPix;
+            QString fileString;
+            fileString.sprintf(":/res/image/%d.jpg", game->getGameMap()[i]);
+            iconPix.load(fileString);
+            QIcon icon(iconPix);
+            imageButton[i]->setIcon(icon);
+            imageButton[i]->setIconSize(QSize(kIconSize - 8, kIconSize - 8));
+            imageButton[i]->show();
+        }
+        else
+            imageButton[i]->hide();
+    }
 }
