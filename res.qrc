@@ -21,5 +21,8 @@
         <file>res/image/youtube-6.png</file>
         <file>res/image/youtube-7.png</file>
         <file>res/image/youtube-8.png</file>
+        <file>res/image/icon/9.jpg</file>
+        <file>res/image/icon/49.jpg</file>
+        <file>res/image/icon/75.jpg</file>
     </qresource>
 </RCC>

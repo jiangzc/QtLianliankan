@@ -162,7 +162,7 @@
   <action name="actionBasic">
    <property name="icon">
     <iconset resource="res.qrc">
-     <normaloff>:/res/image/19.jpg</normaloff>:/res/image/19.jpg</iconset>
+     <normaloff>:/res/image/icon/9.jpg</normaloff>:/res/image/icon/9.jpg</iconset>
    </property>
    <property name="text">
     <string>basic</string>
@@ -171,7 +171,7 @@
   <action name="actionMedium">
    <property name="icon">
     <iconset resource="res.qrc">
-     <normaloff>:/res/image/4.jpg</normaloff>:/res/image/4.jpg</iconset>
+     <normaloff>:/res/image/icon/75.jpg</normaloff>:/res/image/icon/75.jpg</iconset>
    </property>
    <property name="text">
     <string>medium</string>
@@ -180,7 +180,7 @@
   <action name="actionHard">
    <property name="icon">
     <iconset resource="res.qrc">
-     <normaloff>:/res/image/62.jpg</normaloff>:/res/image/62.jpg</iconset>
+     <normaloff>:/res/image/icon/49.jpg</normaloff>:/res/image/icon/49.jpg</iconset>
    </property>
    <property name="text">
     <string>hard</string>
