@@ -8,17 +8,18 @@
 
 // --------- 全局变量 --------- //
 const int kIconSize = 36;
-const int kTopMargin = 90;
-const int kLeftMargin = 130;    //留白
+const int kTopMargin = 90;      // 顶部留空
+const int kLeftMargin = 130;    // 左留空
 
 const QString kIconReleasedStyle = "";
-const QString kIconClickedStyle = "background-color: rgba(255, 0, 0, 255)";
-const QString kIconHintStyle = "background-color: rgba(255, 0, 0, 255)";    //提示颜色
-
+const QString kIconClickedStyle = "background-color: rgba(255, 0, 0, 255)";  // 点击风格
+const QString kIconHintStyle = "background-color: rgba(255, 0, 0, 255)";    // 提示风格
 
 const int kGameTimeTotal = 5 * 60 * 1000; // 总时间
 const int kGameTimerInterval = 300;
 const int kLinkTimerDelay = 700;
+
+// --------------------------- //
 
 
 // 游戏主界面
@@ -83,7 +84,7 @@ void MainGameWindow::initGame(GameLevel level)
 
             // 添加按下的信号槽
             connect(imageButton[i], SIGNAL(pressed()), this, SLOT(onIconButtonPressed()));
-            // 展示出来
+            // 显示
             imageButton[i]->show();
         }
     }
@@ -107,6 +108,7 @@ void MainGameWindow::initGame(GameLevel level)
     audioPlayer->play();
 }
 
+// 点击方块事件
 void MainGameWindow::onIconButtonPressed()
 {
     // 如果当前有方块在连接，不能点击方块
@@ -118,8 +120,7 @@ void MainGameWindow::onIconButtonPressed()
 
     // 若当前是选中的第一个方块
     if(!preIcon) {
-        // 播放音效//        else
-        //            imageButton[i]->hide();
+        // 播放选择音效
         QSound::play(":/res/sound/select.wav");
 
         // 如果单击一个icon
@@ -128,7 +129,7 @@ void MainGameWindow::onIconButtonPressed()
 
     } else {
         if(curIcon != preIcon) {
-            // 如果不是同一个button就都标记,尝试连接
+            // 如果不是同一个button就都标记,并尝试连接
             curIcon->setStyleSheet(kIconClickedStyle);
             if(game->linkTwoTiles(preIcon->xID, preIcon->yID, curIcon->xID, curIcon->yID)) {
                 // 锁住当前状态
@@ -138,7 +139,7 @@ void MainGameWindow::onIconButtonPressed()
                 // 重绘
                 update();
                 // 延迟后实现连接效果
-                QTimer::singleShot(kLinkTimerDelay, this, SLOT(handleLinkEffect()));
+                QTimer::singleShot(kLinkTimerDelay, this, SLOT(handleLinkEffect()));                
 
                 // 每次检查一下是否僵局，若成僵局，则自动进行一次重排
                 if (game->isFrozen())
@@ -149,7 +150,7 @@ void MainGameWindow::onIconButtonPressed()
                     QMessageBox::information(this, "great", "you win");
 
             } else {
-                // 播放音效
+                // 播放释放音效
                 QSound::play(":/res/sound/release.wav");
 
                 // 消除失败，恢复
@@ -161,7 +162,6 @@ void MainGameWindow::onIconButtonPressed()
                 curIcon = NULL;
             }
         } else {
-            // 播放音效
             QSound::play(":/res/sound/release.wav");
 
             preIcon->setStyleSheet(kIconReleasedStyle);
@@ -280,9 +280,9 @@ bool MainGameWindow::eventFilter(QObject *watched, QEvent *event)
         return QMainWindow::eventFilter(watched, event);
 }
 
+// 进度条计时效果
 void MainGameWindow::gameTimerEvent()
 {
-    // 进度条计时效果
     if(ui->timeBar->value() == 0) {
         gameTimer->stop();
         QMessageBox::information(this, "game oGameModel.ver", "play again>_<");
@@ -291,7 +291,7 @@ void MainGameWindow::gameTimerEvent()
         ui->timeBar->setValue(ui->timeBar->value() - kGameTimerInterval);
 }
 
-// 提示
+// 游戏提示
 void MainGameWindow::hintBtnGame()
 {
     // 初始时不能获得提示
@@ -329,34 +329,32 @@ void MainGameWindow::createGameWithLevel()
     update();
 
     QAction *actionSender = (QAction *)dynamic_cast<QAction *>(sender());
-    if (actionSender == ui->actionBasic)
-    {
-        initGame(BASIC);
-    }
-    else if (actionSender == ui->actionMedium)
-    {
-        initGame(MEDIUM);
-    }
-    else if (actionSender == ui->actionHard)
-    {
-        initGame(HARD);
-    }
 
+    if (actionSender == ui->actionBasic)
+        initGame(BASIC);
+    else if (actionSender == ui->actionMedium)
+        initGame(MEDIUM);
+    else if (actionSender == ui->actionHard)
+        initGame(HARD);
 }
 
 // 游戏暂停
 void MainGameWindow::pauseGame()
 {
     if (gameTimer->isActive()) {
+        // 改变按钮文字
         ui->pause_btn->setText("继续游戏");
+        // 停止背景音乐，进度条，计时器
         audioPlayer->pause();
         ui->timeBar->setDisabled(true);
         gameTimer->stop();     
+        // 其他按钮失效
         ui->quit_btn->setDisabled(true);
         ui->restart_btn->setDisabled(true);
         ui->hintBtn->setDisabled(true);
         ui->reset_btn->setDisabled(true);
 
+        // 方块不可点击
         for (int i = 0; i < MAX_ROW * MAX_COL; i++)
             imageButton[i]->setEnabled(false);
 
