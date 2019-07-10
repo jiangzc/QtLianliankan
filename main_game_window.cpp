@@ -78,7 +78,7 @@ void MainGameWindow::initGame(GameLevel level)
             // 有方块就设置图片
             QPixmap iconPix;
             QString fileString;
-            fileString.sprintf(":/res/image/%d.jpg", game->getGameMap()[i]);
+            fileString.sprintf(":/res/image/youtube-%d.png", game->getGameMap()[i]);
             iconPix.load(fileString);
             QIcon icon(iconPix);
             imageButton[i]->setIcon(icon);
@@ -425,7 +425,7 @@ void MainGameWindow::reset()
             // 有方块就设置图片
             QPixmap iconPix;
             QString fileString;
-            fileString.sprintf(":/res/image/%d.jpg", game->getGameMap()[i]);
+            fileString.sprintf(":/res/image/youtube-%d.jpg", game->getGameMap()[i]-1);
             iconPix.load(fileString);
             QIcon icon(iconPix);
             imageButton[i]->setIcon(icon);
