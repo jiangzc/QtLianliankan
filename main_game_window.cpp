@@ -350,6 +350,7 @@ void MainGameWindow::pauseGame()
     if (gameTimer->isActive()) {
         ui->pause_btn->setText("继续游戏");
         audioPlayer->pause();
+        ui->timeBar->setDisabled(true);
         gameTimer->stop();     
         ui->quit_btn->setDisabled(true);
         ui->restart_btn->setDisabled(true);
@@ -362,6 +363,7 @@ void MainGameWindow::pauseGame()
     } else {
         ui->pause_btn->setText("暂停游戏");
         audioPlayer->play();
+        ui->timeBar->setDisabled(false);
         gameTimer->start();
         ui->quit_btn->setDisabled(false);
         ui->restart_btn->setDisabled(false);
