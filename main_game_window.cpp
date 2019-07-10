@@ -294,6 +294,11 @@ void MainGameWindow::gameTimerEvent()
 // 提示
 void MainGameWindow::hintBtnGame()
 {
+    // 初始时不能获得提示
+    for (int i = 0; i < 4;i++)
+        if (game->getHint()[i] == -1)
+            return ;
+
     //两个button显示提示
     int srcX = game->getHint()[0];
     int srcY = game->getHint()[1];
