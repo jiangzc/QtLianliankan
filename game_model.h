@@ -8,7 +8,7 @@
 const int MAX_ROW = 15;
 const int MAX_COL = 20;
 // 游戏可玩图片数量
-const int MAX_ICON = 25;
+const int MAX_ICON = 8;
 // 游戏状态
 enum GameStatus
 {
