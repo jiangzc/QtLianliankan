@@ -41,7 +41,8 @@ MainGameWindow::MainGameWindow(QWidget *parent) :
     connect(ui->pause_btn, SIGNAL(clicked(bool)), this, SLOT(pauseGame()));
     connect(ui->restart_btn, SIGNAL(clicked(bool)), this, SLOT(restartGame()));
     connect(ui->reset_btn, SIGNAL(clicked(bool)), this, SLOT(reset()));
-
+    connect(ui->hintBtn, SIGNAL(clicked(bool)), this, SLOT(hintBtnGame()));
+    connect(ui->quit_btn, SIGNAL(clicked(bool)), this, SLOT(close()));
     // 初始化游戏
     initGame(BASIC);
 }
