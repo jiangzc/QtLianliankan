@@ -56,6 +56,9 @@ private slots:
     void on_hintBtn_clicked(); // 提示按钮
     void on_robot_btn_clicked(); // 机器人自动刷
     void createGameWithLevel(); // 选中难度开始
+    void pauseGame();   // 暂停游戏
+    void restartGame(); // 重新开始游戏
+    void reset();  // 重新排列
 
 };
 

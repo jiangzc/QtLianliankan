@@ -44,7 +44,7 @@
      <string>时间：</string>
     </property>
    </widget>
-   <widget class="QWidget" name="">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
       <x>652</x>
@@ -76,7 +76,7 @@
         <string notr="true">background-color: rgba(11, 255, 36, 161);</string>
        </property>
        <property name="text">
-        <string>暂停</string>
+        <string>暂停游戏</string>
        </property>
       </widget>
      </item>
@@ -120,6 +120,25 @@
       </widget>
      </item>
     </layout>
+   </widget>
+   <widget class="QPushButton" name="reset_btn">
+    <property name="geometry">
+     <rect>
+      <x>980</x>
+      <y>60</y>
+      <width>75</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgba(11, 255, 36, 161);</string>
+    </property>
+    <property name="text">
+     <string>重新排列</string>
+    </property>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">

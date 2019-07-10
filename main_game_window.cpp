@@ -38,6 +38,9 @@ MainGameWindow::MainGameWindow(QWidget *parent) :
     connect(ui->actionBasic, SIGNAL(triggered(bool)), this, SLOT(createGameWithLevel()));
     connect(ui->actionMedium, SIGNAL(triggered(bool)), this, SLOT(createGameWithLevel()));
     connect(ui->actionHard, SIGNAL(triggered(bool)), this, SLOT(createGameWithLevel()));
+    connect(ui->pause_btn, SIGNAL(clicked(bool)), this, SLOT(pauseGame()));
+    connect(ui->restart_btn, SIGNAL(clicked(bool)), this, SLOT(restartGame()));
+    connect(ui->reset_btn, SIGNAL(clicked(bool)), this, SLOT(reset()));
 
     // 初始化游戏
     initGame(BASIC);
@@ -100,6 +103,7 @@ void MainGameWindow::initGame(GameLevel level)
     // 连接状态值
     isLinking = false;
 
+    /*
     // 播放背景音乐(QMediaPlayer只能播放绝对路径文件),确保res文件在程序执行文件目录里而不是开发目录
     audioPlayer = new QMediaPlayer(this);
     QString curDir = QCoreApplication::applicationDirPath(); // 这个api获取路径在不同系统下不一样,mac 下需要截取路径
@@ -111,6 +115,7 @@ void MainGameWindow::initGame(GameLevel level)
 
     audioPlayer->setMedia(QUrl::fromLocalFile(musicPath + "res/sound/backgrand.mp3"));
     audioPlayer->play();
+    */
 }
 
 void MainGameWindow::onIconButtonPressed()
@@ -229,7 +234,6 @@ bool MainGameWindow::eventFilter(QObject *watched, QEvent *event)
             PaintPoint p = game->paintPoints[i];
             str += "x:" + QString::number(p.x) + "y:" + QString::number(p.y) + "->";
         }
-//        qDebug() << str;
 
         // 连接各点画线（注，qt中用标砖vector的size好像有点问题，需要类型转换，否则溢出）
         for (int i = 0; i < int(game->paintPoints.size()) - 1; i++)
@@ -289,8 +293,6 @@ bool MainGameWindow::eventFilter(QObject *watched, QEvent *event)
             else
                 btn_pos2 = imageButton[p2.y * MAX_COL + p2.x]->pos();
 
-
-
             // 中心点
             QPoint pos1(btn_pos1.x() + kIconSize / 2, btn_pos1.y() + kIconSize / 2);
             QPoint pos2(btn_pos2.x() + kIconSize / 2, btn_pos2.y() + kIconSize / 2);
@@ -307,25 +309,22 @@ bool MainGameWindow::eventFilter(QObject *watched, QEvent *event)
 void MainGameWindow::gameTimerEvent()
 {
     // 进度条计时效果
-    if(ui->timeBar->value() == 0)
-    {
+    if(ui->timeBar->value() == 0) {
         gameTimer->stop();
         QMessageBox::information(this, "game over", "play again>_<");
-    }
-    else
-    {
+    } else
         ui->timeBar->setValue(ui->timeBar->value() - kGameTimerInterval);
-    }
-
 }
 
 // 提示
 void MainGameWindow::on_hintBtn_clicked()
 {
+    /*
     // 初始时不能获得提示
     for (int i = 0; i < 4;i++)
         if (game->getHint()[i] == -1)
             return;
+    */
 
     int srcX = game->getHint()[0];
     int srcY = game->getHint()[1];
@@ -374,11 +373,11 @@ void MainGameWindow::on_robot_btn_clicked()
 
             // 检查是否胜利
             if (game->isWin())
-                QMessageBox::information(this, "great", "you win");
+                QMessageBox::information(this, "great", "你赢了！");
 
             // 每次检查一下是否僵局
             if (game->isFrozen() && game->gameStatus == PLAYING)
-                QMessageBox::information(this, "oops", "dead game");
+                QMessageBox::information(this, "oops", "死局");
 
 
 
@@ -390,18 +389,16 @@ void MainGameWindow::on_robot_btn_clicked()
 void MainGameWindow::createGameWithLevel()
 {
     // 先析构之前的
-    if (game)
-    {
+    if (game) {
         delete game;
-        for (int i = 0;i < MAX_ROW * MAX_COL; i++)
-        {
+        for (int i = 0;i < MAX_ROW * MAX_COL; i++) {
             if (imageButton[i])
                delete imageButton[i];
         }
     }
 
     // 停止音乐
-    audioPlayer->stop();
+//    audioPlayer->stop();
 
     // 重绘
     update();
@@ -419,5 +416,46 @@ void MainGameWindow::createGameWithLevel()
     {
         initGame(HARD);
     }
+
+}
+
+void MainGameWindow::pauseGame()
+{
+    if (gameTimer->isActive()) {
+        ui->pause_btn->setText("继续游戏");
+        gameTimer->stop();
+        ui->robot_btn->setDisabled(true);
+        ui->quit_btn->setDisabled(true);
+        ui->restart_btn->setDisabled(true);
+        ui->hintBtn->setDisabled(true);
+        ui->reset_btn->setDisabled(true);
+
+        for (int i = 0; i < MAX_ROW * MAX_COL; i++)
+            imageButton[i]->setEnabled(false);
+
+    } else {
+        ui->pause_btn->setText("暂停游戏");
+        gameTimer->start();
+        ui->robot_btn->setDisabled(false);
+        ui->quit_btn->setDisabled(false);
+        ui->restart_btn->setDisabled(false);
+        ui->hintBtn->setDisabled(false);
+        ui->reset_btn->setDisabled(false);
+
+        for (int i = 0; i < MAX_ROW * MAX_COL; i++)
+            imageButton[i]->setEnabled(true);
+    }
+}
+
+void MainGameWindow::restartGame()
+{
+    MainGameWindow *w = new MainGameWindow();
+    w->show();
+    this->close();
+}
+
+// 重排
+void MainGameWindow::reset()
+{
 
 }
