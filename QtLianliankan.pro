@@ -41,11 +41,6 @@ DISTFILES += \
     res/image/background/剑灵1.jpg \
     res/image/background/仙侠10.png \
     res/image/youtube-8.png \
-    res/image/youtube-7.png \
     res/image/youtube-6.png \
     res/image/youtube-5.png \
-    res/image/youtube-4.png \
-    res/image/youtube-3.png \
-    res/image/youtube-2.png \
-    res/image/youtube-1.png \
-    res/image/youtube-0.png
+    res/image/youtube-2.png

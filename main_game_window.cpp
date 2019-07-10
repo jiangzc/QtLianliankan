@@ -3,7 +3,6 @@
 #include <QMessageBox>
 #include <QPainter>
 #include <QLine>
-#include <QMediaPlaylist>
 #include "main_game_window.h"
 #include "ui_main_game_window.h"
 
@@ -109,24 +108,11 @@ void MainGameWindow::initGame(GameLevel level)
     audioPlayer = new QMediaPlayer(this);
     audioPlayer->setMedia(QUrl("qrc:res/sound/background.mp3"));
     audioPlayer->play();
-
-    /*
-    QMediaPlaylist *playlist = new QMediaPlaylist();
-    playlist->addMedia(QUrl("qrc:res/sounds/background.mp3"));
-    playlist->setPlaybackMode(QMediaPlaylist::Loop);
-    playlist->setCurrentIndex(1);
-
-    audioPlayer = new QMediaPlayer();
-    audioPlayer->setPlaylist(playlist);
-    audioPlayer->play();
-    */
-
 }
 
 void MainGameWindow::onIconButtonPressed()
 {
     // 如果当前有方块在连接，不能点击方块
-    // 因为涉及到多线，可能还要维护队列，有点复杂，就先这么简单处理一下
     if (isLinking)
     {
         // 播放音效
@@ -169,17 +155,13 @@ void MainGameWindow::onIconButtonPressed()
 
                 // 每次检查一下是否僵局，若成僵局，则自动进行一次重排
                 if (game->isFrozen())
-//                    QMessageBox::information(this, "oops", "dead game");
                     reset();
 
                 // 检查是否胜利
                 if (game->isWin())
                     QMessageBox::information(this, "great", "you win");
 
-//                int *hints = game->getHint();
-            }
-            else
-            {
+            } else {
                 // 播放音效
                 QSound::play(":/res/sound/release.wav");
 
@@ -191,9 +173,7 @@ void MainGameWindow::onIconButtonPressed()
                 preIcon = NULL;
                 curIcon = NULL;
             }
-        }
-        else if(curIcon == preIcon)
-        {
+        } else if(curIcon == preIcon) {
             // 播放音效
             QSound::play(":/res/sound/release.wav");
 
@@ -431,8 +411,7 @@ void MainGameWindow::reset()
             imageButton[i]->setIcon(icon);
             imageButton[i]->setIconSize(QSize(kIconSize - 8, kIconSize - 8));
             imageButton[i]->show();
-        }
-        else
+        } else
             imageButton[i]->hide();
     }
 }

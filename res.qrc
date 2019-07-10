@@ -12,14 +12,14 @@
         <file>res/image/background/4.jpg</file>
         <file>res/image/background/7.jpg</file>
         <file>res/sound/background.mp3</file>
-        <file>res/image/youtube-8.png</file>
-        <file>res/image/youtube-7.png</file>
-        <file>res/image/youtube-6.png</file>
-        <file>res/image/youtube-5.png</file>
-        <file>res/image/youtube-4.png</file>
-        <file>res/image/youtube-3.png</file>
-        <file>res/image/youtube-2.png</file>
-        <file>res/image/youtube-1.png</file>
         <file>res/image/youtube-0.png</file>
+        <file>res/image/youtube-1.png</file>
+        <file>res/image/youtube-2.png</file>
+        <file>res/image/youtube-3.png</file>
+        <file>res/image/youtube-4.png</file>
+        <file>res/image/youtube-5.png</file>
+        <file>res/image/youtube-6.png</file>
+        <file>res/image/youtube-7.png</file>
+        <file>res/image/youtube-8.png</file>
     </qresource>
 </RCC>
