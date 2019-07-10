@@ -1,9 +1,9 @@
-#include <QDebug>
 #include <QSound>
 #include <QAction>
 #include <QMessageBox>
 #include <QPainter>
 #include <QLine>
+#include <QMediaPlaylist>
 #include "main_game_window.h"
 #include "ui_main_game_window.h"
 
@@ -104,19 +104,23 @@ void MainGameWindow::initGame(GameLevel level)
     // 连接状态值
     isLinking = false;
 
-    /*
+
     // 播放背景音乐(QMediaPlayer只能播放绝对路径文件),确保res文件在程序执行文件目录里而不是开发目录
     audioPlayer = new QMediaPlayer(this);
-    QString curDir = QCoreApplication::applicationDirPath(); // 这个api获取路径在不同系统下不一样,mac 下需要截取路径
-    QStringList sections = curDir.split(QRegExp("[/]"));
-    QString musicPath;
+    audioPlayer->setMedia(QUrl("qrc:res/sound/background.mp3"));
+    audioPlayer->play();
 
-    for (int i = 0; i < sections.size() - 3; i++)
-        musicPath += sections[i] + "/";
+    /*
+    QMediaPlaylist *playlist = new QMediaPlaylist();
+    playlist->addMedia(QUrl("qrc:res/sounds/background.mp3"));
+    playlist->setPlaybackMode(QMediaPlaylist::Loop);
+    playlist->setCurrentIndex(1);
 
-    audioPlayer->setMedia(QUrl::fromLocalFile(musicPath + "res/sound/backgrand.mp3"));
+    audioPlayer = new QMediaPlayer();
+    audioPlayer->setPlaylist(playlist);
     audioPlayer->play();
     */
+
 }
 
 void MainGameWindow::onIconButtonPressed()
@@ -126,8 +130,8 @@ void MainGameWindow::onIconButtonPressed()
     if (isLinking)
     {
         // 播放音效
-        QSound::play(":/res/sound/release.wav");
-        return;
+        QSound::play(":/res/sound/relebeforease.wav");
+        return ;
     }
 
 
@@ -172,7 +176,7 @@ void MainGameWindow::onIconButtonPressed()
                 if (game->isWin())
                     QMessageBox::information(this, "great", "you win");
 
-                int *hints = game->getHint();
+//                int *hints = game->getHint();
             }
             else
             {
@@ -314,6 +318,7 @@ void MainGameWindow::gameTimerEvent()
     if(ui->timeBar->value() == 0) {
         gameTimer->stop();
         QMessageBox::information(this, "game oGameModel.ver", "play again>_<");
+        restartGame();
     } else
         ui->timeBar->setValue(ui->timeBar->value() - kGameTimerInterval);
 }
@@ -346,7 +351,7 @@ void MainGameWindow::createGameWithLevel()
     }
 
     // 停止音乐
-//    audioPlayer->stop();
+    audioPlayer->stop();
 
     // 重绘
     update();
@@ -371,7 +376,8 @@ void MainGameWindow::pauseGame()
 {
     if (gameTimer->isActive()) {
         ui->pause_btn->setText("继续游戏");
-        gameTimer->stop();
+        audioPlayer->pause();
+        gameTimer->stop();     
         ui->quit_btn->setDisabled(true);
         ui->restart_btn->setDisabled(true);
         ui->hintBtn->setDisabled(true);
@@ -382,6 +388,7 @@ void MainGameWindow::pauseGame()
 
     } else {
         ui->pause_btn->setText("暂停游戏");
+        audioPlayer->play();
         gameTimer->start();
         ui->quit_btn->setDisabled(false);
         ui->restart_btn->setDisabled(false);
@@ -395,6 +402,7 @@ void MainGameWindow::pauseGame()
 
 void MainGameWindow::restartGame()
 {
+    audioPlayer->stop();
     MainGameWindow *w = new MainGameWindow();
     w->show();
     this->close();

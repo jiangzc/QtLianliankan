@@ -115,5 +115,6 @@
         <file>res/image/background/3.jpg</file>
         <file>res/image/background/4.jpg</file>
         <file>res/image/background/7.jpg</file>
+        <file>res/sound/background.mp3</file>
     </qresource>
 </RCC>
