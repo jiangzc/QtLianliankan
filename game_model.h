@@ -50,7 +50,7 @@ public:
     void startGame(GameLevel level);
     int *getGameMap();    // 获得地图
     GameStatus checkGameStatus(); // 判断获得游戏状态，是否输赢
-    bool linkTwoTiles(int srcX, int srcY, int dstX,int dstY); // 连接起点和终点方块，连接是否成功
+    bool linkTwoTiles(int srcX, int srcY, int dstX, int dstY); // 连接起点和终点方块，连接是否成功
     bool isFrozen(); // 判断是否已经成为了僵局
     bool isWin(); // 检查游戏是否结束
     int *getHint(); // 获得提示

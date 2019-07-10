@@ -29,11 +29,10 @@ MainGameWindow::MainGameWindow(QWidget *parent) :
     curIcon(NULL)
 {
     ui->setupUi(this);
-    // 重载eventfilter安装到当前window（其实如果不适用ui文件的话直接可以在window的paintevent里面画）
+    // 重载eventfilter安装到当前window
     ui->centralWidget->installEventFilter(this);
 
-//    setFixedSize(kLeftMargin * 2 + (kIconMargin + kIconSize) * MAX_COL, kTopMargin + (kIconMargin + kIconSize) * MAX_ROW);
-    // 选关信号槽
+    // 关联信号槽
     connect(ui->actionBasic, SIGNAL(triggered(bool)), this, SLOT(createGameWithLevel()));
     connect(ui->actionMedium, SIGNAL(triggered(bool)), this, SLOT(createGameWithLevel()));
     connect(ui->actionHard, SIGNAL(triggered(bool)), this, SLOT(createGameWithLevel()));
@@ -62,18 +61,17 @@ void MainGameWindow::initGame(GameLevel level)
     game->startGame(level);
 
     // 添加button
-    for(int i = 0; i < MAX_ROW * MAX_COL; i++)
-    {
+    for(int i = 0; i < MAX_ROW * MAX_COL; i++) {
+        // 新建button对象
         imageButton[i] = new IconButton(this);
         imageButton[i]->setGeometry(kLeftMargin + (i % MAX_COL) * kIconSize, kTopMargin + (i / MAX_COL) * kIconSize, kIconSize, kIconSize);
         // 设置索引
         imageButton[i]->xID = i % MAX_COL;
         imageButton[i]->yID = i / MAX_COL;
 
-        imageButton[i]->show();
+        imageButton[i]->hide();
 
-        if (game->getGameMap()[i])
-        {
+        if (game->getGameMap()[i]) {
             // 有方块就设置图片
             QPixmap iconPix;
             QString fileString;
@@ -85,9 +83,9 @@ void MainGameWindow::initGame(GameLevel level)
 
             // 添加按下的信号槽
             connect(imageButton[i], SIGNAL(pressed()), this, SLOT(onIconButtonPressed()));
+            // 展示出来
+            imageButton[i]->show();
         }
-        else
-            imageButton[i]->hide();
     }
 
     // 进度条
@@ -103,8 +101,7 @@ void MainGameWindow::initGame(GameLevel level)
     // 连接状态值
     isLinking = false;
 
-
-    // 播放背景音乐(QMediaPlayer只能播放绝对路径文件),确保res文件在程序执行文件目录里而不是开发目录
+    // 播放背景音乐,QMediaPlayer只能播放绝对路径文件
     audioPlayer = new QMediaPlayer(this);
     audioPlayer->setMedia(QUrl("qrc:res/sound/background.mp3"));
     audioPlayer->play();
@@ -114,42 +111,32 @@ void MainGameWindow::onIconButtonPressed()
 {
     // 如果当前有方块在连接，不能点击方块
     if (isLinking)
-    {
-        // 播放音效
-        QSound::play(":/res/sound/relebeforease.wav");
         return ;
-    }
-
 
     // 记录当前点击的icon
     curIcon = dynamic_cast<IconButton *>(sender());
 
-    if(!preIcon)
-    {
-        // 播放音效
+    // 若当前是选中的第一个方块
+    if(!preIcon) {
+        // 播放音效//        else
+        //            imageButton[i]->hide();
         QSound::play(":/res/sound/select.wav");
 
         // 如果单击一个icon
         curIcon->setStyleSheet(kIconClickedStyle);
         preIcon = curIcon;
-    }
-    else
-    {
-        if(curIcon != preIcon)
-        {
+
+    } else {
+        if(curIcon != preIcon) {
             // 如果不是同一个button就都标记,尝试连接
             curIcon->setStyleSheet(kIconClickedStyle);
-            if(game->linkTwoTiles(preIcon->xID, preIcon->yID, curIcon->xID, curIcon->yID))
-            {
+            if(game->linkTwoTiles(preIcon->xID, preIcon->yID, curIcon->xID, curIcon->yID)) {
                 // 锁住当前状态
                 isLinking = true;
-
                 // 播放音效
                 QSound::play(":/res/sound/pair.wav");
-
                 // 重绘
                 update();
-
                 // 延迟后实现连接效果
                 QTimer::singleShot(kLinkTimerDelay, this, SLOT(handleLinkEffect()));
 
@@ -173,7 +160,7 @@ void MainGameWindow::onIconButtonPressed()
                 preIcon = NULL;
                 curIcon = NULL;
             }
-        } else if(curIcon == preIcon) {
+        } else {
             // 播放音效
             QSound::play(":/res/sound/release.wav");
 
@@ -316,7 +303,6 @@ void MainGameWindow::hintBtnGame()
     IconButton *dstIcon = imageButton[dstY * MAX_COL + dstX];
     srcIcon->setStyleSheet(kIconHintStyle);
     dstIcon->setStyleSheet(kIconHintStyle);
-
 }
 
 void MainGameWindow::createGameWithLevel()
@@ -352,6 +338,7 @@ void MainGameWindow::createGameWithLevel()
 
 }
 
+// 游戏暂停
 void MainGameWindow::pauseGame()
 {
     if (gameTimer->isActive()) {
@@ -380,6 +367,7 @@ void MainGameWindow::pauseGame()
     }
 }
 
+// 重新开始
 void MainGameWindow::restartGame()
 {
     audioPlayer->stop();
@@ -393,25 +381,31 @@ void MainGameWindow::reset()
 {
     game->resetMap();
 
-    for (int i = 0; i < MAX_ROW *MAX_COL; i++)
+    for (int i = 0; i < MAX_ROW *MAX_COL; i++) {
         imageButton[i]->hide();
+        imageButton[i]->setStyleSheet(kIconReleasedStyle);
+        // 断开槽连接
+        disconnect(imageButton[i], SIGNAL(pressed()), this, SLOT(onIconButtonPressed()));
+    }
 
     for(int i = 0; i < MAX_ROW * MAX_COL; i++) {
-        // 设置索引
+        // 重置索引
         imageButton[i]->xID = i % MAX_COL;
         imageButton[i]->yID = i / MAX_COL;
 
         if (game->getGameMap()[i]) {
-            // 有方块就设置图片
+            // 重置图片
             QPixmap iconPix;
             QString fileString;
-            fileString.sprintf(":/res/image/youtube-%d.jpg", game->getGameMap()[i]-1);
+            fileString.sprintf(":/res/image/youtube-%d.png", game->getGameMap()[i]-1);
             iconPix.load(fileString);
             QIcon icon(iconPix);
             imageButton[i]->setIcon(icon);
             imageButton[i]->setIconSize(QSize(kIconSize - 8, kIconSize - 8));
             imageButton[i]->show();
-        } else
-            imageButton[i]->hide();
+
+            // 连接槽
+            connect(imageButton[i], SIGNAL(pressed()), this, SLOT(onIconButtonPressed()));
+        }
     }
 }

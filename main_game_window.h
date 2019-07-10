@@ -42,12 +42,9 @@ private:
     IconButton *imageButton[MAX_ROW * MAX_COL]; // 图片button数组
     QTimer *gameTimer; // 游戏计时器
     IconButton *preIcon, *curIcon; // 记录点击的icon
-    bool isLinking; // 维持一个连接状态的标志
-
     QMediaPlayer *audioPlayer; // 音乐播放器
-
+    bool isLinking; // 维持一个连接状态的标志
     void initGame(GameLevel level); // 初始化游戏
-
 
 private slots:
     void onIconButtonPressed(); // icon点击到响应
