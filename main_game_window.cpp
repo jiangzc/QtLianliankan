@@ -9,7 +9,7 @@
 // --------- 全局变量 --------- //
 const int kIconSize = 36;
 const int kTopMargin = 90;
-const int kLeftMargin = 130;
+const int kLeftMargin = 130;    //留白
 
 const QString kIconReleasedStyle = "";
 const QString kIconClickedStyle = "background-color: rgba(255, 0, 0, 255)";
@@ -196,9 +196,10 @@ bool MainGameWindow::eventFilter(QObject *watched, QEvent *event)
     {
         QPainter painter(ui->centralWidget);
         QPen pen;
+        //随机颜色画笔
         QColor color(rand() % 256, rand() % 256, rand() % 256);
         pen.setColor(color);
-        pen.setWidth(5);
+        pen.setWidth(3);
         painter.setPen(pen);
 
         QString str;
@@ -208,7 +209,7 @@ bool MainGameWindow::eventFilter(QObject *watched, QEvent *event)
             str += "x:" + QString::number(p.x) + "y:" + QString::number(p.y) + "->";
         }
 
-        // 连接各点画线（注，qt中用标砖vector的size好像有点问题，需要类型转换，否则溢出）
+        // 连接各点画线（注，qt中用vector的size好像有点问题，需要类型转换，否则溢出）
         for (int i = 0; i < int(game->paintPoints.size()) - 1; i++)
         {
             PaintPoint p1 = game->paintPoints[i];
@@ -267,8 +268,8 @@ bool MainGameWindow::eventFilter(QObject *watched, QEvent *event)
                 btn_pos2 = imageButton[p2.y * MAX_COL + p2.x]->pos();
 
             // 中心点
-            QPoint pos1(btn_pos1.x() + kIconSize / 2, btn_pos1.y() + kIconSize / 2);
-            QPoint pos2(btn_pos2.x() + kIconSize / 2, btn_pos2.y() + kIconSize / 2);
+            QPoint pos1(btn_pos1.x() + kIconSize / 2 , btn_pos1.y() - 8 );
+            QPoint pos2(btn_pos2.x() + kIconSize / 2 , btn_pos2.y() - 8 );
 
             painter.drawLine(pos1, pos2);
         }
