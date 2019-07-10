@@ -44,88 +44,11 @@
      <string>时间：</string>
     </property>
    </widget>
-   <widget class="QWidget" name="layoutWidget">
-    <property name="geometry">
-     <rect>
-      <x>652</x>
-      <y>10</y>
-      <width>401</width>
-      <height>33</height>
-     </rect>
-    </property>
-    <layout class="QHBoxLayout" name="horizontalLayout">
-     <item>
-      <widget class="QPushButton" name="hintBtn">
-       <property name="cursor">
-        <cursorShape>PointingHandCursor</cursorShape>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">background-color: rgba(11, 255, 36, 161);</string>
-       </property>
-       <property name="text">
-        <string>提示</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="pause_btn">
-       <property name="cursor">
-        <cursorShape>PointingHandCursor</cursorShape>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">background-color: rgba(11, 255, 36, 161);</string>
-       </property>
-       <property name="text">
-        <string>暂停游戏</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="robot_btn">
-       <property name="cursor">
-        <cursorShape>PointingHandCursor</cursorShape>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">background-color: rgba(11, 255, 36, 161);</string>
-       </property>
-       <property name="text">
-        <string>作弊</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="restart_btn">
-       <property name="cursor">
-        <cursorShape>PointingHandCursor</cursorShape>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">background-color: rgba(11, 255, 36, 161);</string>
-       </property>
-       <property name="text">
-        <string>重新开始</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="quit_btn">
-       <property name="cursor">
-        <cursorShape>PointingHandCursor</cursorShape>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">background-color: rgba(11, 255, 36, 161);</string>
-       </property>
-       <property name="text">
-        <string>退出</string>
-       </property>
-      </widget>
-     </item>
-    </layout>
-   </widget>
    <widget class="QPushButton" name="reset_btn">
     <property name="geometry">
      <rect>
       <x>980</x>
-      <y>60</y>
+      <y>330</y>
       <width>75</width>
       <height>31</height>
      </rect>
@@ -138,6 +61,82 @@
     </property>
     <property name="text">
      <string>重新排列</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="quit_btn">
+    <property name="geometry">
+     <rect>
+      <x>980</x>
+      <y>194</y>
+      <width>75</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgba(11, 255, 36, 161);</string>
+    </property>
+    <property name="text">
+     <string>退出</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="restart_btn">
+    <property name="geometry">
+     <rect>
+      <x>980</x>
+      <y>262</y>
+      <width>75</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgba(11, 255, 36, 161);</string>
+    </property>
+    <property name="text">
+     <string>重新开始</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pause_btn">
+    <property name="geometry">
+     <rect>
+      <x>980</x>
+      <y>126</y>
+      <width>75</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgba(11, 255, 36, 161);</string>
+    </property>
+    <property name="text">
+     <string>暂停游戏</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="hintBtn">
+    <property name="geometry">
+     <rect>
+      <x>980</x>
+      <y>58</y>
+      <width>75</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgba(11, 255, 36, 161);</string>
+    </property>
+    <property name="text">
+     <string>提示</string>
     </property>
    </widget>
   </widget>
@@ -192,22 +191,5 @@
  <resources>
   <include location="res.qrc"/>
  </resources>
- <connections>
-  <connection>
-   <sender>quit_btn</sender>
-   <signal>clicked()</signal>
-   <receiver>MainGameWindow</receiver>
-   <slot>close()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>921</x>
-     <y>66</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>991</x>
-     <y>120</y>
-    </hint>
-   </hints>
-  </connection>
- </connections>
+ <connections/>
 </ui>

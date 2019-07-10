@@ -85,7 +85,6 @@ void GameModel::startGame()
 
 int *GameModel::getGameMap()
 {
-
     return gameMap;
 }
 
@@ -136,7 +135,7 @@ bool GameModel::isWin()
     return true;
 }
 
-int *GameModel::getHint()
+int* GameModel::getHint()
 {
     return hintArray;
 }
