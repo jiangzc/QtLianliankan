@@ -14,7 +14,7 @@ const int kLeftMargin = 130;
 
 const QString kIconReleasedStyle = "";
 const QString kIconClickedStyle = "background-color: rgba(255, 0, 0, 255)";
-const QString kIconHintStyle = "background-color: rgba(255, 0, 0, 255)";
+const QString kIconHintStyle = "background-color: rgba(255, 0, 0, 255)";    //提示颜色
 
 
 const int kGameTimeTotal = 5 * 60 * 1000; // 总时间
@@ -229,7 +229,7 @@ bool MainGameWindow::eventFilter(QObject *watched, QEvent *event)
         painter.setPen(pen);
 
         QString str;
-        for (int i = 0; i < game->paintPoints.size(); i++)
+        for (unsigned int i = 0; i < game->paintPoints.size(); i++)
         {
             PaintPoint p = game->paintPoints[i];
             str += "x:" + QString::number(p.x) + "y:" + QString::number(p.y) + "->";
@@ -317,15 +317,9 @@ void MainGameWindow::gameTimerEvent()
 }
 
 // 提示
-void MainGameWindow::on_hintBtn_clicked()
+void MainGameWindow::hintBtnGame()
 {
-    /*
-    // 初始时不能获得提示
-    for (int i = 0; i < 4;i++)
-        if (game->getHint()[i] == -1)
-            return;
-    */
-
+    //两个button显示提示
     int srcX = game->getHint()[0];
     int srcY = game->getHint()[1];
     int dstX = game->getHint()[2];
@@ -336,54 +330,6 @@ void MainGameWindow::on_hintBtn_clicked()
     srcIcon->setStyleSheet(kIconHintStyle);
     dstIcon->setStyleSheet(kIconHintStyle);
 
-}
-
-void MainGameWindow::on_robot_btn_clicked()
-{
-    // 初始时不能自动玩
-    for (int i = 0; i < 4;i++)
-        if (game->getHint()[i] == -1)
-            return;
-
-    while (game->gameStatus == PLAYING)
-    {
-        // 连接生成提示
-
-        int srcX = game->getHint()[0];
-        int srcY = game->getHint()[1];
-        int dstX = game->getHint()[2];
-        int dstY = game->getHint()[3];
-
-        if(game->linkTwoTiles(srcX, srcY, dstX, dstY))
-        {
-            // 播放音效
-//            QSound::play(":/res/sound/pair.wav");
-
-            // 消除成功，隐藏掉
-            IconButton *icon1 = imageButton[srcY * MAX_COL + srcX];
-            IconButton *icon2 = imageButton[dstY * MAX_COL + dstX];
-
-            icon1->hide();
-            icon2->hide();
-
-            game->paintPoints.clear();
-
-            // 重绘
-            update();
-
-            // 检查是否胜利
-            if (game->isWin())
-                QMessageBox::information(this, "great", "你赢了！");
-
-            // 每次检查一下是否僵局
-            if (game->isFrozen() && game->gameStatus == PLAYING)
-                QMessageBox::information(this, "oops", "死局");
-
-
-
-            int *hints = game->getHint();
-        }
-    }
 }
 
 void MainGameWindow::createGameWithLevel()
@@ -424,7 +370,6 @@ void MainGameWindow::pauseGame()
     if (gameTimer->isActive()) {
         ui->pause_btn->setText("继续游戏");
         gameTimer->stop();
-        ui->robot_btn->setDisabled(true);
         ui->quit_btn->setDisabled(true);
         ui->restart_btn->setDisabled(true);
         ui->hintBtn->setDisabled(true);
@@ -436,7 +381,6 @@ void MainGameWindow::pauseGame()
     } else {
         ui->pause_btn->setText("暂停游戏");
         gameTimer->start();
-        ui->robot_btn->setDisabled(false);
         ui->quit_btn->setDisabled(false);
         ui->restart_btn->setDisabled(false);
         ui->hintBtn->setDisabled(false);

@@ -34,9 +34,8 @@ void GameModel::startGame(GameLevel level)
         gameMap[i] = 0;
 
     hintArray = (int *)malloc(sizeof(int) * 4);
-    memset(hintArray, 0, 4);
-//    for (int i = 0; i < 4; i++)
-//        hintArray[i] = -1;
+    for (int i = 0; i < 4; i++)
+        hintArray[i] = -1;
 
     gameStatus = PLAYING;
 
@@ -88,7 +87,6 @@ void GameModel::startGame()
 
 int *GameModel::getGameMap()
 {
-
     return gameMap;
 }
 
@@ -139,7 +137,7 @@ bool GameModel::isWin()
     return true;
 }
 
-int *GameModel::getHint()
+int* GameModel::getHint()
 {
     return hintArray;
 }
