@@ -66,6 +66,8 @@ void GameModel::startGame(GameLevel level)
 
     // 初始化绘制点
     paintPoints.clear();
+
+    picTotal = gameLevelNum;
 }
 
 // 游戏重载
@@ -115,9 +117,8 @@ bool GameModel::isFrozen()
 
 bool GameModel::isWin()
 {
-    for (int i = 0; i < MAX_ROW * MAX_COL; i++)
-        if (gameMap[i])
-            return false;
+    if (picTotal > 0)
+        return false;
 
     gameStatus = WIN;
     return true;
@@ -384,6 +385,7 @@ bool GameModel::linkTwoTiles(int srcX, int srcY, int dstX, int dstY)
         // 值重置
         gameMap[MAX_COL * srcY + srcX] = 0;
         gameMap[MAX_COL * dstY + dstX] = 0;
+        picTotal -= 2;
         return true;
     }
 

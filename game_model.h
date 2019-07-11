@@ -57,6 +57,8 @@ public:
     void resetMap();    // 地图重置
     std::vector<PaintPoint> paintPoints; // 用于绘制的点
 
+    int picTotal;
+
     // 游戏状态和难度
     GameStatus gameStatus;
     GameLevel gameLevel;

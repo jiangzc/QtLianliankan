@@ -146,8 +146,12 @@ void MainGameWindow::onIconButtonPressed()
                     reset();
 
                 // 检查是否胜利
-                if (game->isWin())
+                if (game->isWin()) {
                     QMessageBox::information(this, "great", "you win");
+                    audioPlayer->stop();
+                    gameTimer->stop();
+                    ui->timeBar->setDisabled(true);
+                }
 
             } else {
                 // 播放释放音效
